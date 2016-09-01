@@ -2,9 +2,9 @@
 <template>
   <div class="vue-date-container">
     <!-- 输入框 -->
-    <input type="text" @click="show" @focus="show=true" @blur="show=fasle">
+    <input type="text" @focus="show=true"  v-model="datetime">
     <!-- main -->
-    <div class="c-main" >
+    <div class="c-main" v-show="show">
       <div class="c-top c-clearfix">
         <!-- choose year -->
         <div class="c-left">
@@ -33,7 +33,7 @@
       <!-- choose date -->
       <div class="middle clearfix">
         <span class="cell" v-bind:style="{ width: start * 30 + 'px' }"></span>
-        <span class="cell" v-for="i in days" track-by="$index" @click="chooseDate($index)">{{i+1}}</span>
+        <span class="cell {{currentDay-1 === $index?'current-day':''}}" v-for="i in days" track-by="$index" @click="chooseDate($index+1)">{{i+1}}</span>
       </div>
 
       <div class="bottom clearfix">
@@ -75,7 +75,9 @@
         days: 0,
         month: 0,
         start: 0,
-        show:false
+        show:false,
+        currentDay:0,
+        datetime:''
       }
     },
 
@@ -91,6 +93,7 @@
        */
        days () {
         return util.getDays(this.current.year)[this.current.month]
+        
       },
 
       /**
@@ -106,37 +109,36 @@
     },
 
     methods: {
-      /**
-       * 更改年份
-       * @param{number} op 表示增加和减少
-       */
-       updateYear (op) {
+      updateYear (op) {
         this.current.year += op
       },
 
-      /**
-       * 更改月份
-       * @param{number} op 表示增加和减少
-       */
-       updateMonth (op) {
+      updateMonth (op) {
         this.current.month += op
         this.current.month = this.current.month % 12
         this.month = this.current.month + 1
       },
       show () {
+
       },
-      
+
       // 确认选择
-      ok () {},
+      ok () {
+        const str = this.current.year + ' ' + this.current.month + ' ' + this.currentDay;
+        this.datetime = util.formatDate(new Date(str), 'yyyy-MM-dd hh:mm:ss');
+      },
 
-        // 取消按钮
-        cancel () {},
+      // 取消按钮
+      cancel () {
 
-        chooseDate(index){
-            alert(index)
-        }
+      },
+
+      chooseDate(index){
+        this.currentDay = index;
+        alert(index);
       }
-    }
+      }
+  }
 
   </script>
   <style type="text/css">
@@ -181,6 +183,11 @@
     box-sizing: border-box;
     float: left;
     line-height: 30px;
+  }
+  .current-day{
+    background: red;
+    color: #fff;
+    transition: background .5s;
   }
 
   .middle {

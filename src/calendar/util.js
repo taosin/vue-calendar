@@ -1,8 +1,8 @@
 export default {
   weekdays: ['日', '一', '二', '三', '四', '五', '六'],
   getDays (year) {
-    if (this.isLeap(year)) return [31, 29, 31, 30, 31, 30, 31, 31, 30, 30, 30, 31]  // 闰年
-    return [31, 28, 31, 30, 31, 30, 31, 31, 30, 30, 30, 31]   // 平年
+    if (this.isLeap(year)) return [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]  // 闰年
+    return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]   // 平年
   },
   // 闰年
   isLeap (year) {
@@ -33,5 +33,30 @@ export default {
       weekdays: this.weekdays,
       weekday: dateNow.getDay()
     }
+  },
+  // 日期格式化
+  formatDate(input, format) {
+    if (!input || !format) {
+      return ''
+    }
+    input = new Date(new Date(input).getTime())
+    var date = {
+      'M+': input.getMonth() + 1,
+      'd+': input.getDate(),
+      'h+': input.getHours(),
+      'm+': input.getMinutes(),
+      's+': input.getSeconds(),
+      'q+': Math.floor((input.getMonth() + 3) / 3),
+      'S+': input.getMilliseconds()
+    }
+    if (/(y+)/i.test(format)) {
+      format = format.replace(RegExp.$1, (input.getFullYear() + '').substr(4 - RegExp.$1.length))
+    }
+    for (var k in date) {
+      if (new RegExp('(' + k + ')').test(format)) {
+        format = format.replace(RegExp.$1, RegExp.$1.length == 1 ? date[k] : ('00' + date[k]).substr(('' + date[k]).length))
+      }
+    }
+    return format
   }
 }
