@@ -1,6 +1,6 @@
 <!-- 2016-09-01 -->
 <template>
-  <div class="vue-date-container">
+  <div class="c-date-container">
     <!-- 输入框 -->
     <input type="text" @focus="show=true"  v-model="datetime">
     <!-- main -->
@@ -109,91 +109,100 @@
     },
 
     methods: {
+
+      // 更新年
       updateYear (op) {
         this.current.year += op
       },
 
+      // 更新月
       updateMonth (op) {
         this.current.month += op
         this.current.month = this.current.month % 12
         this.month = this.current.month + 1
       },
+
+      // 显示
       show () {
 
       },
 
       // 确认选择
       ok () {
-        const str = this.current.year + ' ' + this.current.month + ' ' + this.currentDay;
-        this.datetime = util.formatDate(new Date(str), 'yyyy-MM-dd hh:mm:ss');
+        const str = this.current.year + ' ' + this.month + ' ' + this.currentDay;
+        this.datetime = util.formatDate(new Date(str), 'yyyy-MM-dd');
+        this.show = false;
       },
 
       // 取消按钮
       cancel () {
-
+        this.show = false;
       },
 
       chooseDate(index){
         this.currentDay = index;
-        alert(index);
       }
-      }
-  }
-
-  </script>
-  <style type="text/css">
-   .c-left {
-    float: left;
-  }
-
-  .c-right {
-    float: right;
-  }
-  .c-left input, .c-right input{
-    width: 50px;
-    text-align: center;
-  }
-  .c-clearfix:after {
-    content: ' ';
-    display: block;
-    clear: both;
-  }
-
-  .flex {
-    display: flex;
-
-  }
-  .flex > .flex-item-1 {
-    flex: 1;
-  }
-
-  .top {
-
-  }
-  .c-main {
-    width: 210px;
-    border: solid 1px #ccc;
-    padding: 10px 12px;
-  }
-  .cell {
-    vertical-align: middle;
-    text-align: center;
-    width: 30px;
-    height: 30px;
-    box-sizing: border-box;
-    float: left;
-    line-height: 30px;
-  }
-  .current-day{
-    background: red;
-    color: #fff;
-    transition: background .5s;
-  }
-
-  .middle {
-    height: 210px;
-    .cell:hover {
-      background: #eee;
     }
   }
+
+</script>
+<style type="text/css">
+ .c-left {
+  float: left;
+}
+
+.c-right {
+  float: right;
+}
+.c-left input, .c-right input{
+  width: 50px;
+  text-align: center;
+}
+.c-clearfix:after {
+  content: ' ';
+  display: block;
+  clear: both;
+}
+
+.flex {
+  display: flex;
+
+}
+.flex > .flex-item-1 {
+  flex: 1;
+}
+
+.top {
+
+}
+.c-main {
+  width: 210px;
+  border: solid 1px #ddd;
+  padding: 10px 12px;
+  position: absolute;
+  margin-top: 20px;
+  transition: .5s;
+  border-radius: 5px;
+}
+.cell {
+  vertical-align: middle;
+  text-align: center;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  float: left;
+  line-height: 30px;
+}
+.current-day{
+  background: red;
+  color: #fff;
+  transition: background .5s;
+}
+
+.middle {
+  height: 210px;
+  .cell:hover {
+    background: #eee;
+  }
+}
 </style>
