@@ -1,21 +1,29 @@
 <template>
   <div id="app">
-  <calendar></calendar>
+  <calendar :options="options" :date.sync="datetime"></calendar>
+  {{datetime}}
   </div>
 </template>
 
 <script>
 import calendar from './calendar/index'
-
 export default {
   components: {
     calendar
+  },
+  data () {
+    return {
+      options: {
+        placeholder: '请选择日期'
+      },
+      datetime: ''
+    }
   }
 }
 </script>
 
 <style>
-html {
+/*html {
   height: 100%;
 }
 
@@ -42,5 +50,5 @@ body {
 .logo {
   width: 100px;
   height: 100px
-}
+}*/
 </style>

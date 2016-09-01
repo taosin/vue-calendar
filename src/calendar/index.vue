@@ -2,9 +2,9 @@
 <template>
   <div class="c-date-container">
     <!-- 输入框 -->
-    <input type="text" @focus="show=true"  v-model="datetime">
+    <input type="text" @focus="show=true"  v-model="datetime" class="date-input" :placeholder="options.placeholder">
     <!-- main -->
-    <div class="c-main" v-show="show">
+    <div class="c-main" v-show="show" transition="c-main" transition-mode="out-in">
       <div class="c-top c-clearfix">
         <!-- choose year -->
         <div class="c-left">
@@ -40,9 +40,9 @@
         <!-- 准确时间 -->
         <div class="time left"></div>
         <!-- 操作按钮 -->
-        <div class="op right">
-          <span class="tool-bar" @click="cancel">取消</span>
-          <span class="tool-bar" @click="ok">确定</span>
+        <div class="c-op">
+          <span class="c-tool-bar c-cancel" @click="cancel">取消</span>
+          <span class="c-tool-bar c-submit" @click="ok">确定</span>
         </div>
       </div>
     </div>
@@ -57,7 +57,16 @@
   }
 
   export default {
-    props: ['options'],
+    props: {
+      options: {
+        type: Object,
+        twoWay: false
+      },
+      date: {
+        type: String,
+        twoWay: true
+      }
+    },
     data () {
       return {
         opts: _.extend({}, this.options, defaultOptions),    // configrations
@@ -86,19 +95,17 @@
       this.days = this.current.days
       this.month = this.current.month + 1
     },
-
-    computed: {
-      /**
-       * 月份对应的天数
-       */
+    watch:{
+      datetime(){
+      }
+    },
+    computed: { 
+       // 获取当月的天数
        days () {
         return util.getDays(this.current.year)[this.current.month]
-        
       },
 
-      /**
-       * 每个月的第一天是星期几
-       */
+       //  每个月的第一天是星期几
        start () {
         var date = new Date()
         date.setFullYear(this.current.year)
@@ -112,6 +119,7 @@
 
       // 更新年
       updateYear (op) {
+        this.current.year = parseInt(this.current.year, 10);
         this.current.year += op
       },
 
@@ -129,16 +137,20 @@
 
       // 确认选择
       ok () {
-        const str = this.current.year + ' ' + this.month + ' ' + this.currentDay;
-        this.datetime = util.formatDate(new Date(str), 'yyyy-MM-dd');
+        if(this.currentDay){
+          const str = this.current.year + ' ' + this.month + ' ' + this.currentDay;
+          this.datetime = util.formatDate(new Date(str), 'yyyy-MM-dd').toString();
+        }else{
+          this.datetime = util.formatDate(new Date(), 'yyyy-MM-dd').toString();
+        }
         this.show = false;
+        this.date = this.datetime;
       },
 
       // 取消按钮
       cancel () {
         this.show = false;
       },
-
       chooseDate(index){
         this.currentDay = index;
       }
@@ -150,13 +162,26 @@
  .c-left {
   float: left;
 }
-
+.date-input{
+  width: 222px;
+  height: 30px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding-left: 10px;
+}
+.date-input:focus,
+.c-left input:focus, .c-right input:focus{
+  outline: none;
+}
 .c-right {
   float: right;
 }
 .c-left input, .c-right input{
   width: 50px;
   text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  height: 20px;
 }
 .c-clearfix:after {
   content: ' ';
@@ -181,8 +206,12 @@
   padding: 10px 12px;
   position: absolute;
   margin-top: 20px;
-  transition: .5s;
+  transition: all .5s ease;
   border-radius: 5px;
+}
+.c-main-enter, .c-main-leave {
+  opacity: 0;
+  transform: translate3d(0,-10px, 0);
 }
 .cell {
   vertical-align: middle;
@@ -194,7 +223,7 @@
   line-height: 30px;
 }
 .current-day{
-  background: red;
+  background: #5e7a88;
   color: #fff;
   transition: background .5s;
 }
@@ -204,5 +233,21 @@
   .cell:hover {
     background: #eee;
   }
+}
+.c-op{
+  margin-top: 10px;
+  text-align: center;
+}
+.c-tool-bar{
+  border: 1px solid #333;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+.c-submit{
+  border: none;
+  display: inline-block;
+  background: #5e7a88;
+  color: #fff;
+  text-align: center;
 }
 </style>
