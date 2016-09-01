@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "a component of calendar for vue",
   "author": "taoxin <taoxin167@gmail.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "build": "node build/build.js",
@@ -50,5 +50,10 @@
     "webpack-dev-middleware": "^1.4.0",
     "webpack-hot-middleware": "^2.6.0",
     "webpack-merge": "^0.8.3"
-  }
+  },
+  "main": ".eslintrc.js",
+  "keywords": [
+    "calendar"
+  ],
+  "license": "ISC"
 }

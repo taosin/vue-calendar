@@ -2,26 +2,36 @@
 
 > a component of calendar for vue
 
-## Build Setup
+## Useage
 
-``` bash
-# install dependencies
-npm install
+```bash
+npm install vue-s-markdown
 
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## eg:
+
+```html
+<template>
+  <div>
+    <Calendar :options="options" :date.sync="datetime"></Calendar>
+  </div>
+</template>
+
+<script>
+import Calendar from './calendar/index'
+export default {
+  components: {
+    Calendar
+  },
+  data () {
+    return {
+      options: {
+        placeholder: '请选择日期'
+      },
+      datetime: ''
+    }
+  }
+}
+</script>
+```
