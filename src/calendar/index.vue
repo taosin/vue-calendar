@@ -51,7 +51,7 @@
 
 <script>
   import _ from 'underscore'
-  import util from './util'
+  const util = require('./util')
 
   const defaultOptions = {
   }

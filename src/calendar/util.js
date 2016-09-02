@@ -1,4 +1,4 @@
-export default {
+const util = {
   weekdays: ['日', '一', '二', '三', '四', '五', '六'],
   getDays (year) {
     if (this.isLeap(year)) return [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]  // 闰年
@@ -60,3 +60,4 @@ export default {
     return format
   }
 }
+module.exports = util;

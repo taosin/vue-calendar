@@ -5,7 +5,7 @@
 ## Useage
 
 ```bash
-npm install vue-s-markdown
+npm install vue-s-calendar
 
 ```
 
@@ -19,7 +19,7 @@ npm install vue-s-markdown
 </template>
 
 <script>
-import Calendar from './calendar/index'
+import Calendar from 'vue-s-calendar/src/calendar/index'
 export default {
   components: {
     Calendar
