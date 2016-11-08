@@ -223,7 +223,7 @@
   line-height: 30px;
 }
 .current-day{
-  background: #5e7a88;
+  background: #E05555;;
   color: #fff;
   transition: background .5s;
 }
@@ -246,8 +246,9 @@
 .c-submit{
   border: none;
   display: inline-block;
-  background: #5e7a88;
+  background: #529DF5;
   color: #fff;
+  padding: 6px 11px;
   text-align: center;
 }
 </style>
