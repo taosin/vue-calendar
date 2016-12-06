@@ -1,15 +1,15 @@
 const util = {
   weekdays: ['日', '一', '二', '三', '四', '五', '六'],
-  getDays (year) {
+  getDays:function(year) {
     if (this.isLeap(year)) return [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]  // 闰年
     return [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]   // 平年
   },
   // 闰年
-  isLeap (year) {
+  isLeap:function(year) {
     return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0
   },
 
-  getStart (date) {
+  getStart:function (date) {
     date.setDate(1)
     return date.getDay()
   },
@@ -17,7 +17,7 @@ const util = {
    * 初始化
    * @param{object} opts 用户提供的初始化信息
    */
-  initDate (opts) {
+  initDate:function (opts) {
     const dateNow = new Date()
     const year = dateNow.getFullYear()
     const month = dateNow.getMonth()  // from 0 to 11
@@ -35,7 +35,7 @@ const util = {
     }
   },
   // 日期格式化
-  formatDate(input, format) {
+  formatDate:function(input, format) {
     if (!input || !format) {
       return ''
     }
