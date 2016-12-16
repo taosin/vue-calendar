@@ -16,7 +16,7 @@ export default {
       options: {
         placeholder: '请选择日期'
       },
-      datetime: ''
+      datetime: '2016-12-18'
     }
   }
 }
