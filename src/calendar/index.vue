@@ -97,6 +97,8 @@
       this.current = util.initDate(this.opts)
       this.days = this.current.days
       this.month = this.current.month + 1
+
+      // 默认时间标记
       this.currentDay = this.date ? util.formatDate(new Date(this.date), 'dd') : util.formatDate(new Date(), 'dd')
     },
     watch:{
